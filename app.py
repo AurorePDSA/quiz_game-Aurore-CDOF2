@@ -1,8 +1,20 @@
 import random
+import time
+from rich.console import Console
+from rich.panel import Panel
 
-def ask_question(question, correct_answers):
-    print(question)
-    user_answer = input("Your answer: ").lower()
+def ask_question(question, correct_answers, time_limit=10):
+    console = Console()
+    console.print(Panel(f"{question}", title="Question"))
+    
+    start_time = time.time()
+    user_answer = console.input(f"Your answer (within {time_limit} seconds): ").lower()
+    end_time = time.time()
+
+    if end_time - start_time > time_limit:
+        console.print("[bold red]Time's up! You ran out of time for this question.[/bold red]\n")
+        return False
+
     return user_answer in map(str.lower, correct_answers)
 
 def play_quiz():
@@ -38,22 +50,25 @@ def play_quiz():
     questions = questions[:5]  
     correct_answers = 0
     total_questions = len(questions)
+    time_limit_per_question = 15  # You can adjust the time limit as needed
 
-    print("Welcome to the Quiz Game! Answer the following 5 questions correctly to win.")
+    console = Console()
+    console.print("\nWelcome to the Quiz Game! Answer the following 5 questions correctly to win.", style="bold")
 
     for i, q in enumerate(questions, start=1):
-        if ask_question(q["question"], q["answers"]):
-            print("Correct!\n")
+        if ask_question(q["question"], q["answers"], time_limit_per_question):
+            console.print("[bold green]Correct![/bold green]\n")
             correct_answers += 1
         else:
-            print(f"Wrong! The correct answers are: {', '.join(q['answers'])}\n")
+            console.print(f"[bold red]Wrong![/bold red] The correct answers are: {', '.join(q['answers'])}\n")
 
-    print(f"Quiz completed! You got {correct_answers} out of {total_questions} questions correct.")
+    console.print(f"Quiz completed! You got {correct_answers} out of {total_questions} questions correct.")
 
     if correct_answers == total_questions:
-        print("Congratulations! You won the game!")
+        console.print("[bold green]Congratulations! You won the game![/bold green]")
     else:
-        print("Better luck next time. Try again!")
+        console.print("\n[bold red]Better luck next time. Try again![/bold red]")
 
 if __name__ == "__main__":
     play_quiz()
+
