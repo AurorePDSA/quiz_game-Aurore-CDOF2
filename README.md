@@ -2,7 +2,7 @@
 
 ## Description
 
-This Python project is a simple Quiz Game where players answer a set of questions to win the game. The game presents a random selection of questions from various categories, and players need to provide correct answers within a specified time limit.
+This Python project is a simple Quiz Game where players answer a set of questions to win the game. The game presents a random selection of questions from various categories, and players need to provide correct answers within a specified time limit chosen by the player.
 
 ## How to Run the Project
 

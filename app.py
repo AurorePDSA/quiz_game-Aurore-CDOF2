@@ -3,7 +3,7 @@ import time
 from rich.console import Console
 from rich.panel import Panel
 
-def ask_question(question, correct_answers, time_limit=10):
+def ask_question(question, correct_answers, time_limit=input("Enter the time limit per question (in seconds): ")):
     console = Console()
     console.print(Panel(f"{question}", title="Question"))
     
@@ -50,7 +50,7 @@ def play_quiz():
     questions = questions[:5]  
     correct_answers = 0
     total_questions = len(questions)
-    time_limit_per_question = 15  # You can adjust the time limit as needed
+    time_limit_per_question = int(input("Enter the time limit per question (in seconds): "))
 
     console = Console()
     console.print("\nWelcome to the Quiz Game! Answer the following 5 questions correctly to win.", style="bold")
@@ -71,4 +71,5 @@ def play_quiz():
 
 if __name__ == "__main__":
     play_quiz()
+    
 
